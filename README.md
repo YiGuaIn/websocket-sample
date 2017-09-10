@@ -1,5 +1,3 @@
-# websocket-sample
-
 ### 使用说明(启动服务端)
 > 步骤 1
 1. npm init
