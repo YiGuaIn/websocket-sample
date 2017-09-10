@@ -1,0 +1,33 @@
+<html>
+<head>
+    <meta charset="utf8">
+    <title>websocket</title>
+</head>
+<body>
+    <textarea style="width:300px; height:150px; margin-bottom:8px"></textarea>
+    <div style="width:300px;text-align:right">
+        <button id="send">發送消息</button>
+        <button id="close">關閉連接</button>
+        <button id="reconnect">重連</button>
+    </div>
+    <script src="./client.js"/></script>
+    <script>
+        window.onload = function () {     
+            var client = new WSConnect("ws://localhost:3000", "tonken2");
+            client.init();
+            var sendBtn = document.getElementById("send");
+            var closeBtn = document.getElementById("close");
+            var restBtn = document.getElementById("reconnect");
+            sendBtn.addEventListener("click", function(){
+                client.send('token2');
+            })
+            closeBtn.addEventListener("click", function(){
+                client.close();
+            });
+            restBtn.addEventListener("click", function(){
+
+            });
+        }
+    </script>
+</body>
+</html>
