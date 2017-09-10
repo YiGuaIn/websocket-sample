@@ -11,27 +11,45 @@
         #close, #reconnect{
             display: none;
         }
+        div:first-of-type{
+            width:300px;
+            text-align:right;
+        }
     </style>
 </head>
-<body>
-    <textarea id="content"></textarea>
-    <div style="width:300px;text-align:right">
+<body> 
+    <div>
+        <textarea id="content"></textarea>
         <button id="send">发送消息</button>
         <button id="close">关闭连接</button>
         <button id="reconnect">重连</button>
     </div>
-    <script src="./client.js"/></script>
+    <div>
+        <p><label>当前状态：</label><span id="cs"></span></p>
+        <p><label>发送状态：</label><span id="ss"></span></p>
+        <p><label>收到回复：</label><span id="rc"></span></p>
+    </div>
+    <script src="./websocket.js"/></script>
     <script>
-        window.onload = function () {     
-            var client = new WSConnect("ws://localhost:3000", "tonken1");
-            client.init(data => {
-                console.log(data);
-            });
+        window.onload = function () {              
             var text = document.getElementById("content");
             var sendBtn = document.getElementById("send");
             var closeBtn = document.getElementById("close");
             var restBtn = document.getElementById("reconnect");
+            var currentState = document.getElementById("cs");
+            var sendState = document.getElementById("ss");
+            var receive = document.getElementById("rc");
+            var testObj = {
+                currentState: currentState,
+                sendState: sendState,
+                receive: receive
+            }
             sendBtn.addEventListener("click", function(){
+                if(text.value == ''){
+                    alert('内容不能为空...');
+                    text.focus();
+                    return;
+                }
                 client.send(text.value);
             })
             closeBtn.addEventListener("click", function(){
@@ -40,6 +58,14 @@
             restBtn.addEventListener("click", function(){
 
             });
+            
+            // 创建websocket;
+            var client = new WSConnect("ws://localhost:3000", "tonken1", testObj);
+            client.init(data => {
+                console.log(data);
+                receive.innerText = data;
+            });
+            
         }
     </script>
 </body>
