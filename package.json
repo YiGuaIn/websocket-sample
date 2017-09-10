@@ -1,12 +1,12 @@
 {
   "name": "websocket",
   "version": "1.0.0",
-  "description": "",
+  "description": "This is a websocket sample.",
   "main": "server.js",
   "scripts": {
     "start": "node ./server.js"
   },
-  "author": "",
+  "author": "YiGuaIn",
   "license": "ISC",
   "devDependencies": {
     "ws": "^3.1.0"
